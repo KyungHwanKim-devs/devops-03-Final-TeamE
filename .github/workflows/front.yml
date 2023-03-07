@@ -1,0 +1,47 @@
+name: front-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - front/**
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: front/node_modules
+          key: ${{ runner.OS }}-master-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: |
+          cd front
+          npm install
+
+      # - name: Discord notification
+      #   env:
+      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      #   uses: Ilshidur/action-discord@master
+      #   with:
+      #     args: "레포지토리 {{ EVENT_PAYLOAD.repository.full_name }}의 프론트배포가 성공했습니다."
+
+      # - name: Build # project build
+      #   run: npm run build
+
+      # - name: Deploy
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_DEFAULT_REGION: ap-northeast-2
+
+      #   run: |
+      #     aws s3 sync ./out s3://fjvn-demo-admin
