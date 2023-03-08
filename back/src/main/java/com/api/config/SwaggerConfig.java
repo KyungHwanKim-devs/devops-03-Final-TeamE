@@ -1,4 +1,4 @@
-package com.api.apiserver.config;
+package com.api.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -11,8 +11,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Project Medic/Medic-api 서버의 API 명세서")
-                        .description("ThirdParty API 서버와의 통신, Project-Medic의 프론트 서버와의 통신을 담당하는 RESTful-API 서버")
+                        .title("중꺽마 api 서버의 API 명세서")
+                        .description("중걱마의 프론트 서버와의 통신을 담당하는 RESTful-API 서버")
                         .version("v1"));
     }
 }

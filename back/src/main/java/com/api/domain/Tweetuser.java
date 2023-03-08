@@ -17,23 +17,23 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "tweetuser")
+public class Tweetuser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "tweetuser_id")
     private Long id;
 
     @NotNull
-    @Column(name = "user_nickname", unique = true)
-    private String userNickname;
+    @Column(name = "tweetuser_nickname", unique = true)
+    private String tweetuserNickname;
 
     @NotNull
-    @Column(name = "user_email", unique = true)
-    private String userEmail;
+    @Column(name = "tweetuser_email", unique = true)
+    private String tweetuserEmail;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "tweetuser")
     private List<Tweet> tweetList = new ArrayList<>();
 
     @CreatedDate

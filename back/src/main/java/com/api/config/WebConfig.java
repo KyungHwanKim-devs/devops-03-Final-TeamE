@@ -1,4 +1,4 @@
-package com.api.apiserver.config;
+package com.api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

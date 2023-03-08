@@ -1,0 +1,40 @@
+
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: back
+    password:
+    driverClassName: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: H2
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        format_sql: true
+        show_sql: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /**
