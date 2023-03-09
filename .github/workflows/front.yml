@@ -35,12 +35,12 @@ jobs:
       #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
       #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      # - name: Discord notification
-      #   env:
-      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      #   uses: Ilshidur/action-discord@master
-      #   with:
-      #     args: "레포지토리 {{ EVENT_PAYLOAD.repository.full_name }} 프론트의 도커파일 빌드가 성공해서 ECR로 푸시를 완료했습니다."
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "레포지토리 {{ EVENT_PAYLOAD.repository.full_name }} 프론트의 도커파일 빌드가 성공해서 ECR로 푸시를 완료했습니다."
 
   # cd:
   #   needs: [ci]

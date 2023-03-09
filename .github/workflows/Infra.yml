@@ -47,9 +47,9 @@ jobs:
       #     cd prod/api-server
       #     terraform apply -auto-approve -input=false
 
-      # - name: Discord notification
-      #   env:
-      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      #   uses: Ilshidur/action-discord@master
-      #   with:
-      #     args: "Infra의 Apply가 성공했습니다."
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "Infra의 Apply가 성공했습니다."
