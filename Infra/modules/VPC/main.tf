@@ -5,23 +5,29 @@ resource "aws_vpc" "teamE_vpc" {
   }
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_subnet" "public" {
+  count = 4
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = aws_vpc.teamE_vpc.id
-  cidr_block        = var.pub_sub_cidr
-  availability_zone = var.availability_zones
+  cidr_block        = var.pub_sub_cidr[count.index]
 
   tags = {
-    Name = "${var.name}-${var.profile}-public"
+    Name = "${var.name}-${var.profile}-public-${count.index + 1}"
   }
 }
 
 resource "aws_subnet" "private" {
+  count = 4
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = aws_vpc.teamE_vpc.id
-  cidr_block        = var.pri_sub_cidr
-  availability_zone = var.availability_zones
+  cidr_block        = var.pri_sub_cidr[count.index]
 
   tags = {
-    Name = "${var.name}-${var.profile}-private"
+    Name = "${var.name}-${var.profile}-private-${count.index + 1}"
   }
 }
 
@@ -51,11 +57,13 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "public" {
-  subnet_id = aws_subnet.public.id
+  count = 4
+  subnet_id = aws_subnet.public.*.id[count.index]
   route_table_id = aws_default_route_table.public.id
 }
 
 resource "aws_route_table_association" "private" {
-  subnet_id = aws_subnet.private.id
+  count = 4
+  subnet_id = aws_subnet.private.*.id[count.index]
   route_table_id = aws_route_table.private.id
 }
