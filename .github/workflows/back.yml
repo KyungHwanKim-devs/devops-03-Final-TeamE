@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  ECR_REPOSITORY: /teame-back-dev
+  ECR_REPOSITORY: teame-back-dev
 
 jobs:
   ci:
