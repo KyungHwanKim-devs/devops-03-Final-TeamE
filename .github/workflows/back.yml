@@ -52,7 +52,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cd back
-          ./gradlew clean build -x test
+          ./gradlew clean build
           docker buildx build --platform=linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg JAR_FILE=./build/libs/*.jar .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           # cd back
