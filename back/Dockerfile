@@ -10,4 +10,3 @@ CMD ["java","-jar","app.jar"]
 
 
 
-# test
