@@ -6,6 +6,9 @@ on:
     paths:
       - front/**
 
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REPOSITORY: 804394216826.dkr.ecr.ap-northeast-2.amazonaws.com/teame-front-dev
 jobs:
   ci:
     name: ci
