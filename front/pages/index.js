@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Search from "../components/search";
 import Trand from "../components/trand";
 import TweetBox from "../components/tweetbox";
+import { useAuth } from "../hooks/useAuth";
 import { useGetAllTweets } from "../query/tweet";
 
 const BodyContainer = styled.div`
@@ -74,6 +75,8 @@ const RightContainer = styled.div`
 
 export default function Index() {
   const { data: tweetData, isLoading } = useGetAllTweets();
+  const auth = useAuth();
+  console.log("auth", auth);
 
   return (
     <BodyContainer>
@@ -85,12 +88,12 @@ export default function Index() {
             <TweetInput placeholder="What's happening?" />
           </TopTweetBox>
           <BottomTweetBox>
-            <TweetButton>Tweet</TweetButton>
+            {/* {auth.isAuthenticated ? "STATUS: LOGIN" : "STATUS: NOT LOGIN"} */}
+            {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>}
           </BottomTweetBox>
         </TweetBoxContainer>
         {!isLoading &&
-          tweetData.map((tweet, i) => <TweetBox key={i} tweet={tweet} />)}
-        {console.log(tweetData)}
+          tweetData?.map((tweet, i) => <TweetBox key={i} tweet={tweet} />)}
       </LeftContainer>
       <RightContainer>
         <Search />

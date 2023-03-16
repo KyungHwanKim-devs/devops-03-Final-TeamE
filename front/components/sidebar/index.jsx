@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Home from "../icons/Home";
 import HashTag from "../icons/HashTag";
+import { useAuth } from "../../hooks/useAuth";
 
 const SidebarContainer = styled.div`
   height: 100vh;
@@ -38,6 +39,7 @@ const TweetButton = styled.button`
 
 export default function Sidebar() {
   const router = useRouter();
+  const auth = useAuth();
 
   return (
     <SidebarContainer>
@@ -63,9 +65,25 @@ export default function Sidebar() {
           display: "flex",
           justifyContent: "center",
         }}
-      >
-        <TweetButton>Tweet</TweetButton>
-      </Link>
+      ></Link>
+      {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>}
+      {auth.isAuthenticated && (
+        <TweetButton onClick={() => auth.signOut()}>Logout</TweetButton>
+      )}
+      {!auth.isAuthenticated &&
+        router.asPath !== "/signin" &&
+        router.asPath !== "/signup" && (
+          <TweetButton onClick={() => router.push("/signin")}>
+            Login
+          </TweetButton>
+        )}
+      {!auth.isAuthenticated &&
+        router.asPath !== "/signin" &&
+        router.asPath !== "/signup" && (
+          <TweetButton onClick={() => router.push("/signup")}>
+            SignUp
+          </TweetButton>
+        )}
     </SidebarContainer>
   );
 }
