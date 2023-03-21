@@ -26,7 +26,7 @@ spec:
         - name: regcred
       containers:
         - name: front
-          image: 804394216826.dkr.ecr.ap-northeast-2.amazonaws.com/teame-front-dev:bb4134801109447e15f46d54c5ad3dbddba0e3e8
+          image: 804394216826.dkr.ecr.ap-northeast-2.amazonaws.com/teame-front-dev:62a67a6f198c9917cd0bb2b1d56fc2d81ee94f24
           ports:
             - containerPort: 3000
           resources:
