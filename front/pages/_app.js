@@ -12,7 +12,6 @@ import { ProvideAuth } from "../hooks/useAuth";
 
 export default function IndexPage({ Component, pageProps }) {
   const [queryClient] = React.useState(() => new QueryClient());
-
   return (
     <QueryClientProvider client={queryClient}>
       <ProvideAuth>
