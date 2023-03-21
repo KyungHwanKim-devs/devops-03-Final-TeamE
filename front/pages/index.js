@@ -74,7 +74,7 @@ const RightContainer = styled.div`
 `;
 
 export default function Index() {
-  const { data: tweetData, isLoading } = useGetAllTweets();
+  const { data: tweetData, isLoading, isSuccess } = useGetAllTweets();
   const auth = useAuth();
   console.log("auth", auth);
 
@@ -93,6 +93,7 @@ export default function Index() {
           </BottomTweetBox>
         </TweetBoxContainer>
         {!isLoading &&
+          isSuccess &&
           tweetData?.map((tweet, i) => <TweetBox key={i} tweet={tweet} />)}
       </LeftContainer>
       <RightContainer>
