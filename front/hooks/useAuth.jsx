@@ -21,6 +21,7 @@ const useProvideAuth = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
+    console.log("AwsConfigAuth", AwsConfigAuth);
     Auth.currentAuthenticatedUser()
       .then((result) => {
         setUsername(result.username);
