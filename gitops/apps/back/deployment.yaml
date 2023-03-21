@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deploy
+  namespace: back
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  replicas: 2
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      name: back
+      labels:
+        app: back
+    spec:
+      #이미지 풀 시크릿
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: back
+          image: 594311320189.dkr.ecr.ap-northeast-2.amazonaws.com/teame-back-dev:8ad2abb75e7f1d84dc1602114f649dd261f5b746
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "1024m"

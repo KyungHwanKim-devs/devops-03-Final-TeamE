@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deploy
+  namespace: front
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      name: front
+      labels:
+        app: front
+    spec:
+      #이미지 풀 시크릿
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: front
+          image: 594311320189.dkr.ecr.ap-northeast-2.amazonaws.com/teame-front-dev:2f43cb94d6f1d74f13f716d39c79a1052fb47c06
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "1024m"
