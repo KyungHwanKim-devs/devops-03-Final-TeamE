@@ -26,7 +26,7 @@ export default function ConfirmUser() {
       <form noValidate onSubmit={executeConfirm}>
         <input
           type="text"
-          placeholder="Email"
+          placeholder="UserID"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

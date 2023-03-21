@@ -34,14 +34,13 @@ const useProvideAuth = () => {
       });
   }, []);
 
-  const signUp = async (username, password, email, phone_number) => {
+  const signUp = async (username, password, email) => {
     try {
       const result = await Auth.signUp({
         username,
         password,
         attributes: {
           email,
-          phone_number,
         },
         autoSignIn: {
           enabled: true,

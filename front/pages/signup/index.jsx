@@ -8,13 +8,13 @@ export default function SignUp() {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
+  // const [phonenumber, setPhonenumber] = useState("");
   const [password, setPassword] = useState("");
 
   const executeSignUp = async (event) => {
     event.preventDefault();
     try {
-      const res = await auth.signUp(username, password, email, phonenumber);
+      const res = await auth.signUp(username, password, email);
       console.log("res", res);
     } catch (error) {
       alert(result.message);
@@ -38,12 +38,12 @@ export default function SignUp() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        {/* <input
           type="text"
           placeholder="phone number"
           value={phonenumber}
           onChange={(e) => setPhonenumber(e.target.value)}
-        />
+        /> */}
         <input
           type="password"
           placeholder="password"
