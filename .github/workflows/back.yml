@@ -14,7 +14,8 @@ jobs:
   ci:
     name: ci
     runs-on: ubuntu-20.04
-
+    outputs:
+      IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -61,23 +62,30 @@ jobs:
         with:
           args: "레포지토리 {{ EVENT_PAYLOAD.repository.full_name }} Back 폴더의 도커파일 빌드가 성공해서 ECR로 푸시를 완료했습니다."
 
-#   cd:
-#     needs: [ci]
-#     name: cd
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: replace tag
-#         uses: mikefarah/yq@master
-#         env:
-#           VALUE: ecr 레포 주소:${{needs.ci.outputs.IMAGE_TAG}}
-#         with:
-#           cmd: yq eval -i '.spec.template.spec.containers[0].image = env(VALUE)' 'gitops/app/back/deployment.yaml'
+  cd:
+    needs: [ci]
+    name: cd
+    runs-on: ubuntu-latest
+    steps:
+      - name: replace tag
+        uses: mikefarah/yq@master
+        env:
+          VALUE: 804394216826.dkr.ecr.ap-northeast-2.amazonaws.com/teame-back-dev:${{needs.ci.outputs.IMAGE_TAG}}
+        with:
+          cmd: yq eval -i '.spec.template.spec.containers[0].image = env(VALUE)' 'gitops/apps/back/deployment.yaml'
 
-#       - name: Push config repo
-#         run: |
-#           git config --global user.email "kkhdevs@gmail.com"
-#           git config --global user.name "KyungHwanKim-devs"
-#           git config --global init.defaultBranch "main"
-#           git add .
-#           git commit -m "Image build"
-#           git push origin main
+      - name: Push config repo
+        run: |
+          git config --global user.email "kkhdevs@gmail.com"
+          git config --global user.name "KyungHwanKim-devs"
+          git config --global init.defaultBranch "main"
+          git add .
+          git commit -m "Image build"
+          git push origin main
+
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "레포지토리 {{ EVENT_PAYLOAD.repository.full_name }} 백의 gitops 폴더에 도커이미지 주소가 업데이트 되었습니다."
