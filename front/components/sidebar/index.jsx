@@ -6,6 +6,7 @@ import Image from "next/image";
 import Home from "../icons/Home";
 import HashTag from "../icons/HashTag";
 import { useAuth } from "../../hooks/useAuth";
+import logo from "../../public/Twitter-logo.png";
 
 const SidebarContainer = styled.div`
   height: 100vh;
@@ -45,7 +46,8 @@ export default function Sidebar() {
     <SidebarContainer>
       <Link href="/" style={{ textDecoration: "none" }}>
         <MenuButton>
-          <Image src="/Twitter-logo.png" width={50} height={40} alt="Logo" />
+          {/* <Image src="/Twitter-logo.png" width={50} height={40} alt="Logo" /> */}
+          <Image src={logo} width={50} height={40} alt="Logo" />
         </MenuButton>
       </Link>
       <Link href="/" style={{ textDecoration: "none" }}>
@@ -66,7 +68,7 @@ export default function Sidebar() {
           justifyContent: "center",
         }}
       ></Link>
-      {/* {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>} */}
+      {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>}
       {auth.isAuthenticated && (
         <TweetButton onClick={() => auth.signOut()}>Logout</TweetButton>
       )}
