@@ -3,19 +3,23 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:h2:mem:test
-    username: back
-    password:
-    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:test
+    username: admin
+    password: sigkgk1!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://test-aurora-db.cluster-ciet9ks9lzrj.ap-northeast-2.rds.amazonaws.com:3306/teame
 
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
+
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
   jpa:
     defer-datasource-initialization: true
-    database-platform: H2
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    database-platform: H2
     hibernate:
       ddl-auto: create-drop
     open-in-view: false
@@ -24,6 +28,9 @@ spring:
         default_batch_fetch_size: 100
         format_sql: true
         show_sql: true
+  sql:
+    init:
+      mode: always
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
