@@ -29,7 +29,7 @@ class TweetServiceImplTest {
 
     @Test
     void getTweetLists_success() {
-        //given 어떤 데이터가 주어졌을 때
+        //given
 
         Tweetuser tweetuser = Tweetuser.builder()
                 .tweetuserNickname("닉네임")
@@ -53,9 +53,9 @@ class TweetServiceImplTest {
         given(tweetRepository.findAll())
                 .willReturn(tweets);
 
-        //when 어떤 경우에
+        //when 
         List<TweetDTO> tweetDTOs = tweetService.getAllTweets();
-        //then 이런 결과가 나온다.
+        //then 
         assertEquals("내용1",tweetDTOs.get(0).getContent());
         assertEquals("내용2",tweetDTOs.get(1).getContent());
         assertEquals("내용3",tweetDTOs.get(2).getContent());

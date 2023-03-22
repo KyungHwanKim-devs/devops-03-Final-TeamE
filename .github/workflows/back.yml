@@ -67,6 +67,9 @@ jobs:
     name: cd
     runs-on: ubuntu-latest
     steps:
+      - name: checkout target repo
+        uses: actions/checkout@v3
+
       - name: replace tag
         uses: mikefarah/yq@master
         env:
