@@ -3,12 +3,12 @@ kind: Kustomization
 
 resources:
   - ./front/namespace.yaml
-  - ./front/ingress.yaml
+  # - ./front/ingress.yaml
   - ./front/deployment.yaml
   - ./front/service.yaml
   - ./front/secret.yaml
   - ./back/namespace.yaml
-  - ./back/ingress.yaml
+  # - ./back/ingress.yaml
   - ./back/deployment.yaml
   - ./back/service.yaml
   - ./back/secret.yaml
