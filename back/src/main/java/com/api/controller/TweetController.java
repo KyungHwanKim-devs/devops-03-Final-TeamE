@@ -1,5 +1,6 @@
 package com.api.controller;
 
+import com.api.DTO.tweet.CreateTweet;
 import com.api.DTO.tweet.TweetDTO;
 import com.api.domain.Tweet;
 import com.api.service.TweetService;
@@ -11,9 +12,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,5 +36,12 @@ public class TweetController {
     @GetMapping("/alltweets")
     public ResponseEntity<List<TweetDTO>> getAllTweets() {
         return ResponseEntity.ok(tweetService.getAllTweets());
+    }
+
+    @PostMapping("/tweet")
+    public ResponseEntity<CreateTweet.Response> createTweet(
+            @RequestBody @Valid CreateTweet.Request request) {
+
+        return ResponseEntity.ok(CreateTweet.Response.from(tweetService.createTweet(request.getTweetContent())));
     }
 }
