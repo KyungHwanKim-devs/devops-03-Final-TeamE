@@ -66,7 +66,7 @@ export default function Sidebar() {
           justifyContent: "center",
         }}
       ></Link>
-      {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>}
+      {/* {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>} */}
       {auth.isAuthenticated && (
         <TweetButton onClick={() => auth.signOut()}>Logout</TweetButton>
       )}

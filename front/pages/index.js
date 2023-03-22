@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import Search from "../components/search";
 import Trand from "../components/trand";
 import TweetBox from "../components/tweetbox";
 import { useAuth } from "../hooks/useAuth";
-import { useGetAllTweets } from "../query/tweet";
+import { useCreateTweets, useGetAllTweets } from "../query/tweet";
 
 const BodyContainer = styled.div`
   display: flex;
@@ -64,6 +65,8 @@ const TweetInput = styled.input`
   background-color: black;
   border: none;
   width: 600px;
+  caret-color: white;
+  color: white;
   ::placeholder {
     color: #5d5d5d;
     font-size: x-large;
@@ -76,8 +79,26 @@ const RightContainer = styled.div`
 export default function Index() {
   const { data: tweetData, isLoading, isSuccess } = useGetAllTweets();
   const auth = useAuth();
-  console.log("auth", auth);
 
+  const [tweet, setTweet] = useState("");
+  const onChange = (e) => {
+    setTweet(e.target.value);
+  };
+
+  const onReset = () => {
+    setTweet("");
+  };
+
+  const mutate = useCreateTweets({
+    tweetContent: tweet,
+  });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await mutate.mutateAsync();
+    onReset();
+  };
+  console.log(tweetData);
   return (
     <BodyContainer>
       <LeftContainer>
@@ -85,11 +106,18 @@ export default function Index() {
         <TweetBoxContainer>
           <TopTweetBox>
             <TweetAvartar />
-            <TweetInput placeholder="What's happening?" />
+            <TweetInput
+              placeholder="What's happening?"
+              onChange={(e) => onChange(e)}
+              value={tweet}
+            />
           </TopTweetBox>
           <BottomTweetBox>
-            {/* {auth.isAuthenticated ? "STATUS: LOGIN" : "STATUS: NOT LOGIN"} */}
-            {auth.isAuthenticated && <TweetButton>Tweet</TweetButton>}
+            {auth.isAuthenticated && (
+              <TweetButton type="button" onClick={(e) => onSubmit(e)}>
+                Tweet
+              </TweetButton>
+            )}
           </BottomTweetBox>
         </TweetBoxContainer>
         {!isLoading &&

@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllTweets } from "../apis/tweet";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createTweet, getAllTweets } from "../apis/tweet";
 
 export const useGetAllTweets = () => {
   return useQuery({
@@ -13,3 +13,13 @@ export const useGetAllTweets = () => {
     },
   });
 };
+
+export function useCreateTweets(content) {
+  console.log("content in useCreateTweets", content);
+  const queryClient = useQueryClient();
+  return useMutation(() => createTweet(content), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tweets"]);
+    },
+  });
+}
