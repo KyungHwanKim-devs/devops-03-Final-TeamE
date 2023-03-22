@@ -32,7 +32,6 @@ public class TweetController {
                     description = "조회 실패",
                     content = @Content(schema = @Schema(implementation = Error.class)))
     })
-    // TODO 테스트코드 작성필요
     @GetMapping("/alltweets")
     public ResponseEntity<List<TweetDTO>> getAllTweets() {
         return ResponseEntity.ok(tweetService.getAllTweets());
