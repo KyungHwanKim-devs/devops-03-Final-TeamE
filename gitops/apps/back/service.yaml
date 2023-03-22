@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: back-svc
-  namespace: back
+  namespace: backend
   labels:
     app: back
 spec:

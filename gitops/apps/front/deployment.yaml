@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: front-deploy
-  namespace: front
+  namespace: frontend
 spec:
   strategy:
     type: RollingUpdate

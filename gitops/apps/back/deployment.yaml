@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: back-deploy
-  namespace: back
+  namespace: backend
 spec:
   strategy:
     type: RollingUpdate
