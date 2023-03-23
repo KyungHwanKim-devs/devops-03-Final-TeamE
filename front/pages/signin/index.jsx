@@ -12,7 +12,7 @@ export default function Signin() {
 
   const executeSignIn = async (event) => {
     event.preventDefault();
-    console.log("로그인 실행");
+    // console.log("로그인 실행");
     const result = await auth.signIn(username, password);
     if (result.success) {
       router.push("/");
